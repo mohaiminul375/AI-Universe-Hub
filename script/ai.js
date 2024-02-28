@@ -10,9 +10,9 @@ const showData = (infos) => {
   //  console.log(infos)
   infos.forEach((info) => {
     const features = info.features;
-    console.log(features
-        )
-    // features.forEach(info=>console.log(info))
+    // console.log(features);
+    const singleInfo = features.map((info) => info);
+    // console.log(singleInfo)
     // console.log(info.name);
     const infoCard = document.createElement("div");
     // infoCard.classList.add = `card w-96 bg-base-100 shadow-xl`;
@@ -37,7 +37,7 @@ const showData = (infos) => {
                              </div>
                     
                             <div>
-                                <button class="btn btn-primary">Buy Now</button>
+                                <button onclick="loadDetails('${info.id}')" class="btn btn-primary">Buy Now</button>
                              </div>
                              </div>
                         </div>
@@ -46,5 +46,18 @@ const showData = (infos) => {
     infoCardContainer.appendChild(infoCard);
   });
 };
+
+const loadDetails = async (id) => {
+  const res = await fetch(
+    `https://openapi.programming-hero.com/api/ai/tool/${id}`
+  );
+  const data = await res.json();
+  showDetails(data.data);
+};
+
+const showDetails=(data)=>{
+console.log(data);
+show_data_modal.showModal()
+}
 
 loadData();
